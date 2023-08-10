@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dictionary App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand">Dictionary App</a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" id="feed" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" id="submit" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <h2><span id="thumb"></span> </h2>
+
+  <p id="Definition"></p>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script>
+    const getMeaning = (word) => {
+      thumb.innerHTML = 'Results for the ' + word + ':';
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'e6eded0184msh0ee068b2c2e380dp15938fjsnec411410d543',
+          'X-RapidAPI-Host': 'dictionary-by-api-ninjas.p.rapidapi.com'
+        }
+      };
+
+      fetch('https://dictionary-by-api-ninjas.p.rapidapi.com/v1/dictionary?word=' + word, options)
+        .then(response => response.json())
+
+        .then(response => {
+          console.log(response)
+          // let k = response.definition.split('.');
+          Definition.innerHTML = response.definition.split(/[.,!,?]/, 10);
+          // k.forEach((point, index) => {
+
+          //   console.log(Definition.innerHTML = (`Point ${index + 1}: ${point}`))
+          //   });
+
+
+
+        }
+
+
+        )
+        .catch(err => console.error(err));
+
+
+
+    }
+    submit.addEventListener('click', (e) => {
+      e.preventDefault();
+      getMeaning(feed.value)
+    })
+
+  </script>
+</body>
+</body>
+
+</html>
